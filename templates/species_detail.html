@@ -1,0 +1,37 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Species Detail{% endblock %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/bird_species.css' %}" />
+
+<div class="flex flex-col items-center">
+    <div class="flex flex-col items-center justify-center">
+        <div class="mb-5">
+            <h1 class="font-bold text-3xl -m-3 text-slate-700 uppercase">BIRD SPECIES DETAILS</h1>
+        </div>
+        <div class="bg-purple-200 p-6 md:p-10 rounded-md md:mx-16">
+            <div class="flex flex-col md:flex-row justify-center gap-6 md:gap-5">
+                <div class="max-w-full md:max-w-1/2 h-auto md:h-48 overflow-hidden mb-4 md:mb-0 md:mr-6 rounded-md">
+                    <img src="{{ image_url }}" alt="Classified Image" class="w-full h-full object-cover" />
+                </div>
+                <div class="flex flex-col gap-2 md:gap-4 mt-1">
+                    <h2><span class="font-bold">Status Code:</span> {{ species.get_status_code_display  }}</h2>
+                    <h3><span class="font-bold">Common Name:</span> {{ species.common_name }}</h3>
+                    <h3><span class="font-bold">Scientific Name:</span> {{ species.scientific_name }}</h3>
+                    <h3><span class="font-bold">Current Status: </span>{{ species.get_current_status_display }}</h3>
+                </div>
+            </div>
+            <div class="flex flex-col  justify-center items-center mt-3">
+                <div class="mb-3">
+                    <p><span class="font-bold text-xl">Bird Description: </span>{{ species.bird_description }}</p>
+                </div>
+                <a href=" {{species.wiki_link}}" class="font-bold text-white p-2 bg-purple-500 rounded-md hover:bg-black hover:duration-500">{{species.common_name}} wikipedia</a>
+                <div class="m-3">
+                    <p>Classified At: {{ current_time }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

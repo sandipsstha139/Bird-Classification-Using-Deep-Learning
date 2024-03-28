@@ -1,0 +1,49 @@
+{% load static %}
+
+<header class=" md:flex md:items-center md:justify-between shadow-lg md:shadow-none p-4 pb-1 md:pb-4 m-5 rounded-md">
+  
+  <div class="flex items-center justify-between mb-4 md:mb-0 ">
+    <a href="{% url 'index' %}">
+      <h1 class="font-extrabold text-3xl md:ml-8 ">Endanger<span class="text-purple-500 font-extrabold">ED</span></h1>
+    </a>
+
+    <a class="text-black hover:text-purple md:hidden" href="#" id="menuToggle">
+      <i class="fa fa-2x fa-bars"></i>
+    </a>
+  </div>
+
+  <nav>
+    <ul class="list-reset hidden md:flex md:items-center md:gap-8" id="navMenu">
+      <li class="md:ml-4">
+        <a class=" py-2 hover:font-bold hover:duration-300 md:p-0" href="{% url 'index' %}">
+          Home
+        </a>
+      </li>
+      <li class="md:ml-4">
+        <a class=" py-2 hover:font-bold hover:duration-300 md:p-0" href="{% url 'renderHome' %}">
+          Prediction
+        </a>
+      </li>
+      <li class="md:ml-4">
+        <a class=" py-2 hover:font-bold hover:duration-300 md:p-0" href="{% url 'about' %}">
+          About Us
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+</header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var menuToggle = document.getElementById('menuToggle');
+    var navMenu = document.getElementById('navMenu');
+
+    menuToggle.addEventListener('click', function () {
+      navMenu.classList.toggle('hidden');
+    });
+
+    
+  });
+
+</script>

@@ -1,0 +1,85 @@
+{% extends 'base.html' %} 
+{% block title %}Prediction{% endblock %}
+{% block content %}
+
+
+<div class="flex flex-col items-center justify-center min-h-[calc(100vh-25rem)]">
+  <div>
+    <h1 class="font-bold text-2xl md:text-3xl text-slate-700 inline-block text-center items-center md:mr-0">
+      INSERT IMAGE TO PREDICT BIRD SPECIES
+    </h1>
+  </div>
+  <div class=" p-6 md:p-10  w-full my-4">
+    <form
+      method="POST"
+      id="image-upload-form"
+      enctype="multipart/form-data"
+      action="{% url 'renderHome' %}"
+    >
+    <!-- Image preview container -->
+    <div id="img-show" class="mt-4 hidden ">
+      <div class="flex items-center justify-center ">
+        <img id="preview-img" alt="Image Preview" class="w-96 rounded-lg" />
+      </div>
+    </div>
+      {% csrf_token %}
+      <div class="flex flex-col justify-center items-center m-10 p-3">
+        <input
+          name="image"
+          type="file"
+          id="image-upload"
+          accept="image/*"
+          onchange="previewImage()"
+          class="ml-5"
+        />
+        
+        <button
+          type="submit"
+          id="classifyButton"
+          class="w-48 bg-purple-500 mt-5 p-2 text-xl font-bold rounded-md text-white hover:bg-black hover:duration-500 hover:ease-in-out"
+        >
+          Predict Bird
+        </button>
+      </div>
+      {% if predicted_species %}
+      <strong
+        ><p>Classified Image: {{ predicted_species.common_name }}</p></strong
+      >
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+<script>
+  function previewImage() {
+      // Get the file input element
+      var input = document.getElementById('image-upload');
+      
+      // Get the preview container and image elements
+      var previewContainer = document.getElementById('img-show');
+      var previewImage = document.getElementById('preview-img');
+
+      // Check if a file is selected
+      if (input.files && input.files[0]) {
+          // Create a FileReader to read the selected image
+          var reader = new FileReader();
+
+          // Set the callback function when the image is loaded
+          reader.onload = function (e) {
+              // Set the source of the image preview
+              previewImage.src = e.target.result;
+
+              // Show the image preview container
+              previewContainer.style.display = 'block';
+          };
+
+          // Read the selected image as data URL
+          reader.readAsDataURL(input.files[0]);
+      } else {
+          // If no file is selected, hide the image preview container
+          previewContainer.style.display = 'none';
+      }
+  }
+</script>
+
+{% endblock %}
